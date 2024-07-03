@@ -1,0 +1,35 @@
+// product.controller.ts
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
+import { ProductService } from './product.service';
+import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
+
+@Controller('product')
+export class ProductController {
+  constructor(private readonly productService: ProductService) {}
+
+  @Post()
+   create(@Body() createProductDto: CreateProductDto) {
+    return this.productService.create(createProductDto);
+  }
+
+  @Get()
+   findAll(){
+    return this.productService.findAll();
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    return await this.productService.findOne(+id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() UpdateProductDto: UpdateProductDto) {
+    return this.productService.update(+id, UpdateProductDto);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return await this.productService.remove(id);
+  }
+}

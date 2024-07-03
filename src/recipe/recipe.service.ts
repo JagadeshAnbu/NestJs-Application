@@ -10,8 +10,8 @@ export class RecipeService {
   create(createRecipeDto: CreateRecipeDto) {
     return this.prisma.recipe.create({
       data: createRecipeDto,
-    });  
-}
+    });
+  }
 
   findAll() {
     return this.prisma.recipe.findMany();
@@ -34,6 +34,5 @@ export class RecipeService {
       return await this.prisma.recipe.delete({
         where: { id },
       });
-    }
-        
+    }       
 }
