@@ -1,7 +1,8 @@
 // src/recipes/dto/create-recipe.dto.ts
-import { IsString, IsOptional } from 'class-validator'
+import { IsString, IsOptional, IsNotEmpty } from 'class-validator'
 
 export class CreateRecipeDto {
+  @IsNotEmpty()
   @IsString()
   title: string;
 
@@ -10,8 +11,10 @@ export class CreateRecipeDto {
   description?: string;
 
   @IsString()
+  @IsNotEmpty()
   ingredients: string;
 
   @IsString()
+  @IsNotEmpty()
   instructions: string;
 }
