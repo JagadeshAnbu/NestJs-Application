@@ -1,9 +1,8 @@
 // src/main.ts
-
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+import { ClassSerializerInterceptor, ValidationPipe, VersioningType } from '@nestjs/common';
 
 // Define the bootstrap function
 async function bootstrap() {
@@ -11,6 +10,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+
+  //versioning
+  app.enableVersioning({
+    type: VersioningType.URI, // Use URI versioning (/v1, /v2)
+    defaultVersion: '1', // Set a default version if none is specified
+  });
 
   // Use DocumentBuilder to create a new Swagger document configuration
   const config = new DocumentBuilder()
@@ -24,6 +29,7 @@ async function bootstrap() {
   // Create a Swagger document using the application instance and the document configuration
   const document = SwaggerModule.createDocument(app, config);
 
+  
   // Setup Swagger module with the application instance and the Swagger document
   SwaggerModule.setup('api', app, document);
 

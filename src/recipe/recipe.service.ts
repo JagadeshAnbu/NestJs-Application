@@ -14,7 +14,11 @@ export class RecipeService {
   }
 
   findAll() {
-    return this.prisma.recipe.findMany();
+    return this.prisma.recipe.findMany({
+      orderBy:{
+        id: 'asc',
+      }
+    });
   }
 
   findOne(id: number) {

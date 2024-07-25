@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
-
+import { UserEntity } from './entities/user.entity';
 export const roundsOfHashing = 10;
 
 @Injectable()
@@ -17,14 +17,20 @@ export class UsersService {
     );
 
     createUserDto.password = hashedPassword;
+    //handle unique contraint issue
     return this.prisma.user.create({ data: createUserDto });
   }
 
   findAll() {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({
+      orderBy:{
+        name: 'asc',
+      },
+    });
   }
 
-  findOne(id: number) {
+  async findOne(id: number): Promise<UserEntity> {
+    
     return this.prisma.user.findUnique({ where: { id } });
   }
 

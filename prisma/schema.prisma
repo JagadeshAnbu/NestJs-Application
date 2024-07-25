@@ -26,6 +26,7 @@ model Recipe {
   instructions String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
+
 }
 
 model Category {
@@ -36,6 +37,7 @@ model Category {
   updatedAt DateTime  @default(now())
 
   @@map("categories") // Map to "categories" table
+
 }
 
 model Product {
@@ -50,6 +52,7 @@ model Product {
   updatedAt  DateTime    @default(now())
 
   @@map("products") // Map to "products" table
+
 }
 
 model Cart {
@@ -64,6 +67,7 @@ model Cart {
 
   @@unique([userId, productId])
   @@map("carts")
+
 }
 
 model Order {
@@ -76,6 +80,7 @@ model Order {
   payment     Payment?  // Define the inverse relation to Payment
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @default(now())
+
 }
 
 model OrderItem {
@@ -88,8 +93,8 @@ model OrderItem {
   price     Float
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-
   @@map("order_items")
+
 }
 
 enum OrderStatus {

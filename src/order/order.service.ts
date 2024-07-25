@@ -54,7 +54,13 @@ export class OrderService {
               },
             },
           },
+          orderBy: {
+            id: 'desc', // Order the orderItems in descending order by id or any other field
+          },
         },
+      },
+      orderBy: {
+        id: 'desc', // Order the orders in descending order by id or any other field
       },
     });
   }

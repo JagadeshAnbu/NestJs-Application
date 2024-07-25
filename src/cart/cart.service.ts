@@ -29,6 +29,9 @@ export class CartService {
     return this.prisma.cart.findMany({
       where: { userId },
       include: { product: true },
+      orderBy: {
+        createdAt: 'asc', // Replace 'createdAt' with the field you want to order by
+      },
     });
   }
 
@@ -43,6 +46,4 @@ export class CartService {
       where: { id: cartId },
     });
   }
-
-
 }
